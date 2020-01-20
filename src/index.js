@@ -8,6 +8,8 @@ function ready() {
     let d = document.querySelector("#some-id");
 
     if (!selectorExists(d)) return;
+
+    let num = formatNumber(d);
 }
 
 onDomReady(ready);
