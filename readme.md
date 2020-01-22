@@ -6,6 +6,11 @@ This setup will help compile JS scripts, CSS, HTML and move relevant assets to a
 
 It has compile options for just JS, CSS, HTML or Assets or to watch all files and build on update.
 
+## Requirements
+
+-   Install gulp-cli - `npm install gulp-cli -g`
+-   Run `npm install` to download dependencies
+
 ## Uses
 
 -   For JS, there is Babel, Rollup and Terser
