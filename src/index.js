@@ -18,7 +18,7 @@ import getScrollProgress from "./../modules/getScrollProgress.js";
 import onDomReady from "./../modules/onDomReady.js";
 
 // * Plugins
-import countdownTimer from "./../modules/countdownTimer.js";
+// import countdownTimer from "./../modules/countdownTimer.js";
 
 // * Polyfills
 import polyfillNodeListForEach from "./../modules/polyfillNodeListForEach.js";
