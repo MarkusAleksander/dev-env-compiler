@@ -1,3 +1,7 @@
+/**
+ * Execute a callback when the DOM has loaded
+ * @param {function} fn
+ */
 export default function onDomReady(fn) {
     if (
         document.attachEvent

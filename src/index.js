@@ -1,15 +1,24 @@
-import onDomReady from "./modules/onDomReady.js";
-import getNestedProperty from "./modules/getNestedProperty.js";
-import formatNumber from "./modules/formatNumber.js";
-import pollObject from "./modules/pollObject.js";
-import selectorExists from "./modules/selectorExists.js";
+// * Import modules - all unnecessary modules will be removed automatically
 
-function ready() {
-    let d = document.querySelector("#some-id");
+// * Extending Document API
+import addClassToggleToElements from "./../modules/addClassToggleToElements.js";
+import addMoveElementToLocation from "./../modules/addMoveElementToLocation.js";
+import addChangeStyleToElement from "../modules/addChangeStyleToElement.js/index.js";
 
-    if (!selectorExists(d)) return;
+// * Checker Functions
+import checkDefined from "./../modules/checkDefined.js";
+import checkElementIsInView from "./../modules/checkElementIsInView.js";
+import pollFunction from "./../modules/pollFunction.js";
+import selectorExists from "./../modules/selectorExists.js";
 
-    let num = formatNumber(d);
-}
+// * General Purpose Functions
+import formatNumber from "./../modules/formatNumber.js";
+import getNestedProperty from "./../modules/getNestedProperty.js";
+import getScrollProgress from "./../modules/getScrollProgress.js";
+import onDomReady from "./../modules/onDomReady.js";
 
-onDomReady(ready);
+// * Plugins
+import countdownTimer from "./../modules/countdownTimer.js";
+
+// * Polyfills
+import polyfillNodeListForEach from "./../modules/polyfillNodeListForEach.js";

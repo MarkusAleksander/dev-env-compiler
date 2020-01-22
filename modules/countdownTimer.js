@@ -1,3 +1,7 @@
+/**
+ * Countdown Timer - See README for instructions
+ * @param {object} data - object containing data about the timer
+ */
 function CountdownTimer(data) {
     this._dateEnd = data.dateEnd || 0;
     this._daysAsHours = data.daysAsHours || true;
