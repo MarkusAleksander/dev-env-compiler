@@ -18,7 +18,20 @@ import getScrollProgress from "./../modules/getScrollProgress.js";
 import onDomReady from "./../modules/onDomReady.js";
 
 // * Plugins
+// * Uncomment as required
 // import countdownTimer from "./../modules/countdownTimer.js";
 
 // * Polyfills
 import polyfillNodeListForEach from "./../modules/polyfillNodeListForEach.js";
+
+// * Begin coding...
+
+onDomReady(someFunction);
+
+function someFunction() {
+    let x = "£2.50";
+
+    let num = formatNumber(x);
+
+    console.log(`num is: ${num}`);
+}

@@ -13,7 +13,6 @@
         "@babel/core": "^7.8.3",
         "@babel/plugin-transform-arrow-functions": "^7.8.3",
         "@babel/plugin-transform-parameters": "^7.8.3",
-        "@babel/polyfill": "^7.8.3",
         "@babel/preset-env": "^7.8.3",
         "@babel/runtime-corejs3": "^7.8.3",
         "autoprefixer": "^9.7.4",
@@ -35,7 +34,7 @@
         "postcss-sorting": "^5.0.1",
         "precss": "^4.0.0",
         "prettier": "^1.19.1",
-        "rollup": "^1.29.0",
+        "rollup": "^1.29.1",
         "stylelint": "^13.0.0",
         "terser": "^4.6.3"
     },
