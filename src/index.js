@@ -3,7 +3,7 @@
 // * Extending Document API
 import addClassToggleToElements from "./../modules/addClassToggleToElements.js";
 import addMoveElementToLocation from "./../modules/addMoveElementToLocation.js";
-import addChangeStyleToElement from "../modules/addChangeStyleToElement.js/index.js";
+import addChangeStyleToElement from "./../modules/addChangeStyleToElement.js";
 
 // * Checker Functions
 import checkDefined from "./../modules/checkDefined.js";
