@@ -16,6 +16,7 @@
         "@babel/preset-env": "^7.8.3",
         "@babel/runtime-corejs3": "^7.8.3",
         "autoprefixer": "^9.7.4",
+        "del": "^5.1.0",
         "eslint": "^6.8.0",
         "gulp": "^4.0.2",
         "gulp-babel": "^8.0.0",
@@ -39,12 +40,13 @@
         "terser": "^4.6.3"
     },
     "browserslist": [
-        "defaults",
+        "last 4 versions",
         "Edge >= 12",
         "Firefox >= 60",
         "Chrome >= 67",
         "Safari >= 11.1",
-        "IE 11"
+        "IE 11",
+        "iOS 6"
     ],
     "dependencies": {}
 }

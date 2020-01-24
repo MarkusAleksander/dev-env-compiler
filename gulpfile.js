@@ -3,6 +3,7 @@ const { watch, src, dest } = require("gulp");
 const babel = require("gulp-babel");
 const postcss = require("gulp-postcss");
 const rollup = require("gulp-better-rollup");
+const del = require("del");
 
 const src_folder = "src/";
 const prod_folder = "prod/";
@@ -41,3 +42,7 @@ exports.javascript = javascript;
 exports.css = css;
 exports.html = html;
 exports.assets = assets;
+
+exports.clear = function() {
+    return del([`${src_folder}/**`, `${prod_folder}/**`]);
+};
