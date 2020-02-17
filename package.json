@@ -48,5 +48,8 @@
         "IE 11",
         "iOS 6"
     ],
-    "dependencies": {}
+    "dependencies": {
+        "gulp-prettier": "^2.3.0",
+        "rollup-plugin-cleanup": "^3.1.1"
+    }
 }
