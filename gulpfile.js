@@ -1,19 +1,53 @@
 /* eslint-disable */
-const { watch, src, dest } = require("gulp");
-const babel = require("gulp-babel");
-const postcss = require("gulp-postcss");
-const rollup = require("gulp-better-rollup");
-const cleanup = require("rollup-plugin-cleanup");
-const del = require("del");
-const prettier = require("gulp-prettier");
+const { watch, src, dest, series, parallel } = require("gulp"),
+    babel = require("gulp-babel"),
+    postcss = require("gulp-postcss"),
+    rollup = require("gulp-better-rollup"),
+    cleanup = require("rollup-plugin-cleanup"),
+    del = require("del"),
+    prettier = require("gulp-prettier"),
+    csso = require("gulp-csso"),
+    terser = require("gulp-terser"),
+    rename = require("gulp-rename");
 
-const src_folder = "src/";
-const prod_folder = "prod/";
-const assets_src_folder = `${src_folder}assets/`;
-const assets_prod_folder = `${prod_folder}assets/`;
+const src_folder = "src/",
+    prod_folder = "prod/";
 
+const settings = {
+    clean: true,
+};
+
+const paths = {
+    src: src_folder,
+    prod: prod_folder,
+
+    html: {
+        src: `${src_folder}html/`,
+        prod: `${prod_folder}html/`,
+    },
+
+    css: {
+        src: `${src_folder}css/`,
+        prod: `${prod_folder}css/`,
+    },
+
+    js: {
+        src: `${src_folder}js/`,
+        prod: `${prod_folder}js/`,
+    },
+
+    assets: {
+        src: `${src_folder}assets/`,
+        prod: `${prod_folder}assets/`,
+    },
+};
+
+/**
+ * Process Javascript Files
+ */
 function javascript() {
-    return src(`${src_folder}**/*.js`)
+    return src(`${paths.js.src}*.js`)
+        .pipe(babel())
         .pipe(
             rollup(
                 {
@@ -31,43 +65,95 @@ function javascript() {
                 }
             )
         )
-        .pipe(babel())
         .pipe(prettier())
-        .pipe(dest(prod_folder));
+        .pipe(dest(paths.js.prod))
+        .pipe(rename({ suffix: ".min" }))
+        .pipe(terser())
+        .pipe(dest(paths.js.prod));
 }
+// exports.javascript = javascript;
 
+/**
+ * Process CSS Files
+ */
 function css() {
-    return src(`${src_folder}**/*.css`)
+    return src(`${paths.css.src}*.css`)
         .pipe(postcss())
-        .pipe(dest(prod_folder));
+        .pipe(dest(paths.css.prod));
 }
+// exports.css = css;
 
+/**
+ * Process HTML files
+ */
 function html() {
-    return src(`${src_folder}**/*.html`).pipe(dest(prod_folder));
+    return src(`${paths.html.src}*.html`).pipe(dest(paths.html.prod));
 }
+// exports.html = html;
 
+/**
+ * Process Assets
+ */
 function assets() {
-    return src(`${assets_src_folder}**/*`).pipe(dest(assets_prod_folder));
+    return src(`${paths.assets.src}*`).pipe(dest(paths.assets.prod));
+}
+// exports.assets = assets;
+
+/**
+ * Watch All files
+ */
+function watchSrc(done) {
+    watch(paths.src, series(exports.default));
+    done();
 }
 
-exports.watch = function() {
-    watch(`${src_folder}**/*.js`, { ignoreInitial: false }, javascript);
-    watch(`${src_folder}**/*.css`, { ignoreInitial: false }, css);
-    watch(`${src_folder}**/*.html`, { ignoreInitial: false }, html);
-    watch(`${assets_src_folder}**/*`, { ignoreInitial: false }, assets);
-};
+/**
+ * Clear all files from both src and prod
+ */
+function clear() {
+    return del([
+        `${paths.html.src}*`,
+        `${paths.css.src}*`,
+        `${paths.js.src}*`,
+        `${paths.assets.src}*`,
+        `${paths.html.prod}*`,
+        `${paths.css.prod}*`,
+        `${paths.js.prod}*`,
+        `${paths.assets.prod}*`,
+    ]);
+}
 
-exports.javascript = javascript;
-exports.css = css;
-exports.html = html;
-exports.assets = assets;
+/**
+ * Clear all files from src only
+ */
+function clearSrc() {
+    return del([
+        `${paths.html.src}*`,
+        `${paths.css.src}*`,
+        `${paths.js.src}*`,
+        `${paths.assets.src}*`,
+    ]);
+}
+exports.clearSrc = clearSrc;
 
-exports.clear = function() {
-    return del([`${src_folder}/**`, `${prod_folder}/**`]);
-};
-exports.clearSrc = function() {
-    return del([`${src_folder}/**`]);
-};
-exports.clearProd = function() {
-    return del([`${prod_folder}/**`]);
-};
+/**
+ * Clear all files from prod only
+ */
+function clearProd(done) {
+    if (!settings.clean) return done();
+
+    del.sync([paths.prod]);
+
+    return done();
+}
+// exports.clearProd = clearProd;
+
+/**
+ * Default scripts
+ */
+exports.default = series(clearProd, parallel(html, javascript, css, assets));
+
+/**
+ * Watch Script
+ */
+exports.watch = series(exports.default, watchSrc);
