@@ -8,10 +8,13 @@ const { watch, src, dest, series, parallel } = require("gulp"),
     prettier = require("gulp-prettier"),
     csso = require("gulp-csso"),
     terser = require("gulp-terser"),
-    rename = require("gulp-rename");
+    rename = require("gulp-rename"),
+    jest = require("gulp-jest").default;
 
 const src_folder = "src/",
-    prod_folder = "prod/";
+    prod_folder = "prod/",
+    test_folder = "tests/",
+    modules_folder = "modules/";
 
 const settings = {
     clean: true,
@@ -20,6 +23,8 @@ const settings = {
 const paths = {
     src: src_folder,
     prod: prod_folder,
+    test: test_folder,
+    modules: modules_folder,
 
     html: {
         src: `${src_folder}html/`,
@@ -40,6 +45,10 @@ const paths = {
         src: `${src_folder}assets/`,
         prod: `${prod_folder}assets/`,
     },
+
+    tests: {
+        modules: `${test_folder}modules/`,
+    },
 };
 
 /**
@@ -47,15 +56,13 @@ const paths = {
  */
 function javascript() {
     return src(`${paths.js.src}*.js`)
-        .pipe(babel())
         .pipe(
             rollup(
                 {
                     plugins: [
                         cleanup({
-                            maxEmptyLines: 1,
+                            maxEmptyLines: -1,
                             comments: "all",
-                            lineEndings: "unix",
                             sourcemap: false,
                         }),
                     ],
@@ -65,6 +72,7 @@ function javascript() {
                 }
             )
         )
+        .pipe(babel())
         .pipe(prettier())
         .pipe(dest(paths.js.prod))
         .pipe(rename({ suffix: ".min" }))
@@ -157,3 +165,24 @@ exports.default = series(clearProd, parallel(html, javascript, css, assets));
  * Watch Script
  */
 exports.watch = series(exports.default, watchSrc);
+
+function cleanTestModules(done) {
+    del.sync([paths.tests.modules]);
+
+    return done();
+}
+
+function transformESModulesToCommonJS() {
+    return src(`${paths.modules}*.js`)
+        .pipe(
+            babel({
+                plugins: ["@babel/plugin-transform-modules-commonjs"],
+            })
+        )
+        .pipe(dest(`${paths.tests.modules}`));
+}
+
+/**
+ * Run Tests
+ */
+exports.runTests = series(cleanTestModules, transformESModulesToCommonJS);
