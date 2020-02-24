@@ -185,4 +185,4 @@ function transformESModulesToCommonJS() {
 /**
  * Run Tests
  */
-exports.runTests = series(cleanTestModules, transformESModulesToCommonJS);
+exports.buildTests = series(cleanTestModules, transformESModulesToCommonJS);
