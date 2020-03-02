@@ -79,7 +79,6 @@ function javascript() {
         .pipe(terser())
         .pipe(dest(paths.js.prod));
 }
-// exports.javascript = javascript;
 
 /**
  * Process CSS Files
@@ -154,7 +153,7 @@ function clearProd(done) {
 
     return done();
 }
-// exports.clearProd = clearProd;
+exports.clearProd = clearProd;
 
 /**
  * Default scripts
