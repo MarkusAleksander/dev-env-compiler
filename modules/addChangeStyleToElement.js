@@ -1,6 +1,8 @@
 /**
  *  Extends the Element object with style change functionality
  */
+
+//  ! Deprecated - Shouldn't change Element prototype
 export default function addChangeStyleToElement() {
     /**
      * Change Style on an element

@@ -3,6 +3,7 @@ import selectorExists from "./selectorExists.js";
 /**
  *  Extends the Element object with a move to location function
  */
+//  ! Deprecated - Shouldn't change Element prototype
 export default function addMoveElementToLocation() {
     /**
      * Move element to a specified location

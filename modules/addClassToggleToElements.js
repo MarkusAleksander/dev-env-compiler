@@ -1,6 +1,7 @@
 /**
  *  Extends the Element object with class toggle functionality
  */
+//  ! Deprecated - Shouldn't change Element prototype
 export default function addClassToggleToElements() {
     /**
      * Toggle class on element
