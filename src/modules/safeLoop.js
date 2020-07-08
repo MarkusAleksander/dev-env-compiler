@@ -18,7 +18,7 @@ export default function safeLoop(array, cb, scope = undefined) {
     let i = 0,
         l = array.length;
 
-    for (i; i < l; l++) {
+    for (i; i < l; i++) {
         cb.call(scope, i, array[i]);
     }
 }
