@@ -2,7 +2,7 @@
 const { watch, src, dest, series, parallel } = require("gulp"),
     babel = require("gulp-babel"),
     postcss = require("gulp-postcss"),
-    rollup = require("gulp-better-rollup"),
+    rollup = require("gulp-rollup-2").rollup,
     cleanup = require("rollup-plugin-cleanup"),
     del = require("del"),
     prettier = require("gulp-prettier"),
@@ -61,20 +61,26 @@ const paths = {
 function javascript() {
     return src(`${paths.js.src}*.js`)
         .pipe(
-            rollup(
-                {
-                    plugins: [
-                        cleanup({
-                            maxEmptyLines: -1,
-                            comments: "all",
-                            sourcemap: false,
-                        }),
-                    ],
-                },
-                {
-                    format: "iife",
-                }
-            )
+            rollup({
+                input: `${paths.js.src}main.js`,
+                external: ["window"],
+                plugins: [
+                    cleanup({
+                        maxEmptyLines: -1,
+                        comments: "all",
+                        sourcemap: false,
+                    }),
+                ],
+                cache: false,
+                output: [
+                    {
+                        file: "main.js",
+                        name: "example",
+                        format: "iife",
+                        globals: { window: "window" },
+                    },
+                ],
+            })
         )
         .pipe(babel())
         .pipe(prettier())
