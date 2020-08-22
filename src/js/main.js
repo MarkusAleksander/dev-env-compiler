@@ -1,31 +1,17 @@
-import safeLoop from "./../modules/safeLoop.js";
+// * components
 
-if (!$.fn.andSelf) {
-    $.fn.andSelf = function() {
-        return this.addBack.apply(this, arguments);
-    };
-}
-const carousels = document.querySelectorAll(".carousel.owl-carousel");
+// * header
+// * footer
+// * menu
+// * data
 
-const owlOptions = {
-    items: 2,
-    nav: true,
-    dots: true,
-    loop: true,
-    touchDrag: true,
-    mouseDrag: true,
-    responsive: {
-        768: {
-            items: 4,
-            nav: false,
-            dots: false,
-            loop: false,
-            touchDrag: false,
-            mouseDrag: false,
-        },
-    },
-};
+import project_data from "./project_data.js";
 
-safeLoop(carousels, (idx, carousel) => {
-    $(carousel).owlCarousel(owlOptions);
+import header_block from "./header.js";
+import project_page from "./project.js";
+import footer_block from "./footer.js";
+
+// * start the app
+var app = new Vue({
+    el: "#app",
 });

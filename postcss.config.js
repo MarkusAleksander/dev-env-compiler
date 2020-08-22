@@ -1,5 +1,6 @@
 /* eslint-disable */
 module.exports = {
+    syntax: "postcss-scss",
     plugins: [
         require("postcss-nesting")(),
         require("precss")(),
