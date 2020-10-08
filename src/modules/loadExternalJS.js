@@ -1,13 +1,16 @@
-export default function loadExternalJS(src, callback) {
+import checkIsAFunction from "./checkIsAFunction";
+
+/**
+ * Load a js script and run optional onload when loaded, or onerror when failed
+ * @param {string} src 
+ * @param {function} onload 
+ * @param {function} onerror 
+ */
+export default function loadExternalJS(src, onload = null, onerror = null) {
     let script = document.createElement("script");
     script.src = src;
     script.async = true;
-    script.onreadystatechange = script.onload = () => {
-        let state = script.readyState;
-        if (!callback.done && (!state || /loaded|complete/.test(state))) {
-            callback.done = true;
-            callback();
-        }
-    };
+    checkIsAFunction(onload) && (script.onload = onload);
+    checkIsAFunction(onerror) && (script.onerror = onerror);
     document.getElementsByTagName("head")[0].appendChild(script);
 }
