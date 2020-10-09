@@ -13,9 +13,9 @@ export default function addClassToggleToElements(elementArray) {
         if (element.toggleClass && typeof element.toggleClass === "function")
             return;
 
-        element.toggleClass = function(class_name) {
+        element.toggleClass = function (class_name) {
             let cl = this.classList;
-            cl.contains(class_name) ? cl.remove(class_name) : cl.add(className);
+            cl.contains(class_name) ? cl.remove(class_name) : cl.add(class_name);
         };
     });
 }
