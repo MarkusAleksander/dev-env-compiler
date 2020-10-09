@@ -1,4 +1,6 @@
-import buildElement from "./buildElement.js";
+import buildCustomElement from "./buildCustomElement.js";
+
+// TODO
 
 /**
  * Method to create a dom structure from a virtual representation
@@ -19,7 +21,7 @@ export default function domBuilder(struct, location) {
         }
 
         // * Create the dom element
-        el = buildElement(dData.tag, {
+        el = buildCustomElement(dData.tag, {
             attributes: dData.attributes,
             styles: dData.styles,
             events: dData.events,
@@ -76,12 +78,12 @@ const domStructure = {
                         target.changeStyle(
                             "color",
                             "rgb(" +
-                                Math.random() * 255 +
-                                "," +
-                                Math.random() * 255 +
-                                "," +
-                                Math.random() * 255 +
-                                ")"
+                            Math.random() * 255 +
+                            "," +
+                            Math.random() * 255 +
+                            "," +
+                            Math.random() * 255 +
+                            ")"
                         );
                     },
                 },

@@ -10,6 +10,7 @@ const scrollEventManager = (function scrollEventManager() {
 
     function addScrollEventListener(fn, wait, immediate) {
         let debouncedFn = debounce(fn, wait, immediate);
+        // TODO - IDs
         let scrollFnID = scrollFnStore.length;
 
         scrollFnStore.push(debouncedFn);

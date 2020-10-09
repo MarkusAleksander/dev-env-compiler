@@ -1,9 +1,15 @@
-export default function debounce(func, wait, immediate) {
+/**
+ * Standard debounce function
+ * @param {function} func 
+ * @param {integer} wait 
+ * @param {boolean} immediate 
+ */
+export default function debounce(func, wait, immediate = false) {
     var timeout;
-    return function() {
+    return function () {
         var context = this,
             args = arguments;
-        var later = function() {
+        var later = function () {
             timeout = null;
             if (!immediate) func.apply(context, args);
         };

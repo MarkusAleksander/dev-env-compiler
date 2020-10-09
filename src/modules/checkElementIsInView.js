@@ -1,10 +1,12 @@
+import checkDefined from "./checkDefined.js";
+
 /**
  * Check if an element is in view, by default checks if partly in view. Set false to check fully in view
  * @param {element} el 
  * @param {boolean} is_part_view
  */
 export default function checkIsInVIew(el, is_part_view = true) {
-    if (!el || !el.nodeType) return false;
+    if (!checkDefined(el) || !el.nodeType) return false;
 
     const rect = el.getBoundingClientRect();
 

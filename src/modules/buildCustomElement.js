@@ -3,6 +3,7 @@ import addClassToggleToElements from "./addClassToggleToElements";
 import addReplaceClassToElement from "./addReplaceClassToElement";
 import addMoveElementToLocation from "./addMoveElementToLocation";
 import safeLoop from "./safeLoop";
+import checkDefined from "./checkDefined";
 
 /**
  * Improved version of document.createElement, taking in type and custom object with options
@@ -40,21 +41,21 @@ export default function buildCustomElement(
     });
 
     // * set classes
-    if (classes && Array.isArray(classes)) {
+    if (checkDefined(classes) && Array.isArray(classes)) {
         safeLoop(classes, (scope, idx, class_name) => {
             el.toggleClass(class_name);
         });
     }
 
     // * Add any attributes 
-    if (attributes && typeof attributes === "object") {
+    if (checkDefined(attributes) && typeof attributes === "object") {
         safeLoop(Object.keys(attributes), (scope, idx, attr) => {
             el.setAttribute(attr, attributes[attr]);
         });
     }
 
     // * Set up any events
-    if (events && Array.isArray(events)) {
+    if (checkDefined(events) && Array.isArray(events)) {
         safeLoop(events, (scope, idx, eventObj) => {
             safeLoop(Object.keys(eventObj), (scope, idx, event_type) => {
                 el.addEventListener(event_type, eventObj[event_type]);
@@ -63,14 +64,14 @@ export default function buildCustomElement(
     }
 
     // * Add any styles
-    if (styles && typeof styles === "object") {
+    if (checkDefined(styles) && typeof styles === "object") {
         safeLoop(Object.keys(styles), (scope, idx, style) => {
             el.changeStyle(style, styles[style]);
         });
     }
 
     // * Set location
-    if (location && typeof location === "object") {
+    if (checkDefined(location) && typeof location === "object") {
         let [selector, rel_pos] = location;
         el.moveElementToLocation(document.querySelector(selector), rel_pos);
     }
