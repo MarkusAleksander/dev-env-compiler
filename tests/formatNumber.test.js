@@ -20,20 +20,20 @@ test("formatNumber returns 35.04 from 'the price is £35.04.45.34.67567567'", ()
     expect(formatNumber("the price is £35.04", null)).toBe(35.04);
 });
 test("formatNumber returns null from 'the price is'", () => {
-    expect(formatNumber("the price is", null)).toBe(null);
+    expect(formatNumber("the price is", null)).toBeNull();
 });
 test("formatNumber returns null from undefined", () => {
-    expect(formatNumber(undefined, null)).toBe(null);
+    expect(formatNumber(undefined, null)).toBeNull();
 });
 test("formatNumber returns null from 2", () => {
-    expect(formatNumber(2, null)).toBe(null);
+    expect(formatNumber(2, null)).toBeNull();
 });
 test("formatNumber returns 12 from new String('asdas12asdsad')", () => {
     expect(formatNumber(new String("asdas12asdsad"), null)).toBe(12);
 });
 test("formatNumber returns null from ['test']", () => {
-    expect(formatNumber(["test"], null)).toBe(null);
+    expect(formatNumber(["test"], null)).toBeNull();
 });
 test("formatNumber returns null from {test:'test'}", () => {
-    expect(formatNumber({ test: "test" }, null)).toBe(null);
+    expect(formatNumber({ test: "test" }, null)).toBeNull();
 });

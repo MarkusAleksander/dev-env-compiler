@@ -68,7 +68,7 @@ function javascript() {
                     cleanup({
                         maxEmptyLines: -1,
                         comments: "all",
-                        sourcemap: false,
+                        sourcemap: true,
                     }),
                 ],
                 cache: false,
