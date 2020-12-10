@@ -20,16 +20,15 @@ export default function checkIsInVIew(el, is_part_view = true) {
 
     if (is_part_view) {
         return (
-            (t >= 0 && (t < (window.innerHeight ||
-                document.documentElement.clientHeight))) ||
-            (l >= 0 && (l < ((window.innerWidth ||
-                document.documentElement.clientWidth)))) ||
-            (b > 0 && (b <=
-                (window.innerHeight ||
-                    document.documentElement.clientHeight))) ||
-            (r > 0 && (r <=
-                (window.innerWidth ||
-                    document.documentElement.clientWidth)))
+            (t < (window.innerHeight ||
+                document.documentElement.clientHeight))
+            &&
+            (b > 0)
+            &&
+            (l < ((window.innerWidth ||
+                document.documentElement.clientWidth)))
+            &&
+            (r > 0)
         );
     } else {
         return (
