@@ -2,8 +2,9 @@
 module.exports = {
     syntax: "postcss-scss",
     plugins: [
-        require("postcss-nesting")(),
-        require("precss")(),
+        require("postcss-simple-vars")(),
+        require("postcss-nested")(),
+        // require("precss")(),
         require("postcss-position")(),
         require("postcss-rgb")(),
         require("postcss-hocus")(),
